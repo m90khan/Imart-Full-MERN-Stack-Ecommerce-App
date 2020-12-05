@@ -1,0 +1,32 @@
+//css
+:root {
+  //HEadings
+  // --h1: calc(2rem + 1vw);
+  // --h2: calc(3.5rem + 1vw);
+  // --h3: calc(0.4rem + 1vw);
+  // --h4: calc(2.4rem + 1vw);
+  // --p: calc(1rem + 1vw);
+  // --text: calc(0.5rem + 1vw);
+  // --bigtext: calc(6rem + 1vw);
+
+  --shadow-dark: 1rem 1rem 4rem rgba(0, 0, 0, 0.5), -1rem -1rem 4rem rgba(0, 0, 0, 0.5);
+  --line: 1px solid rgba(99, 99, 99, 0.1);
+  --shadow-light: 0 1rem 2rem rgba(80, 36, 36, 0.2);
+}
+
+//Colors
+$color-primary: #5e77fb;
+$color-primary-light: #8a9dff;
+$color-primary-dark: #3955e9;
+$color-grey-light: #f2f4f5;
+
+$color-grey-light-2: #ccc;
+
+$color-grey-dark: #333;
+$color-grey-dark-1: #777;
+$color-grey-dark-2: #999;
+$color-black: #000;
+$color-white: #fff;
+// FONT VARIABLES
+$font-primary: 'Lato', sans-serif;
+$font-secondary: 'Rubik', sans-serif;

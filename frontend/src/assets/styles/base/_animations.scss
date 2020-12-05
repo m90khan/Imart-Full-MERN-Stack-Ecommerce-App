@@ -1,0 +1,70 @@
+.opening {
+  animation: opening 1s ease-in-out;
+}
+@keyframes opening {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeinleft,
+.fadeinright,
+.opening {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.fadeinleft {
+  animation: fadeinleft 1s ease-in-out 0.5s;
+}
+@keyframes fadeinleft {
+  0% {
+    opacity: 0;
+    transform: translateX(-20%);
+    filter: blur(10px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(10%);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.fadeinright {
+  animation: fadeinright 1s ease-in-out 0.5s;
+}
+@keyframes fadeinright {
+  0% {
+    opacity: 0;
+    transform: translateX(20%);
+    filter: blur(10px);
+  }
+  80% {
+    opacity: 1;
+    transform: translateX(-10%);
+    filter: blur(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+}
+
+.moveinup {
+  animation: moveinup 1s ease-in-out 1s backwards;
+}
+@keyframes moveinup {
+  0% {
+    opacity: 0;
+    transform: translateY(20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}

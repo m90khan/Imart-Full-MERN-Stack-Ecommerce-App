@@ -1,0 +1,20 @@
+// Files Imports
+//abstracts
+@import "./abstracts/mixins";
+ @import "./abstracts/variables";
+// base
+@import "./base/base";
+@import "./base/animations";
+@import "./base/utilities";
+@import "./base/typography";
+//components
+@import "./components/product";
+@import "./components/search-box";
+@import "./components/icon-box";
+@import "./components/nav-icons";
+//layout
+@import "./layout/email-view";
+ @import "./layout/navigation";
+//pages
+@import "./pages/home";
+/* */
