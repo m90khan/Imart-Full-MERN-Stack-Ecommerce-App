@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "ecommerce online shop",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
     "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\" "
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "data:import": "node backend/seeder --import",
+    "data:delete": "node backend/seeder --delete"
   },
   "repository": {
     "type": "git",
@@ -27,11 +30,15 @@
   "homepage": "https://github.com/m90khan/Imart-Full-MERN-Stack-Ecommerce-App#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "colors": "^1.4.0",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.4",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "validator": "^13.5.1"
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
