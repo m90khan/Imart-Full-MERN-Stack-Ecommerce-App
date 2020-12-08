@@ -96,7 +96,8 @@ export const protect = asyncHandler(async (req, res, next) => {
   }
   // 5- Grant access to the provided route
   req.user = currentUser;
-  //   res.locals.user = currentUser; // to use it all templates
+  console.log(req.user);
+  // res.locals.user = currentUser; // to use it all templates
   next();
 });
 /*
@@ -133,3 +134,47 @@ export const logout = (req, res) => {
   });
   res.status(200).json({ status: 'success' });
 };
+
+//filter only the allowed fields
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) {
+      newObj[el] = obj[el];
+    }
+  });
+  return newObj;
+};
+
+/*
+@desc     : Update User Profile
+@route    : PUT /api/v1/users/profile
+@access   : Private 
+*/
+export const updateUserProfile = asyncHandler(async (req, res, next) => {
+  const user = await User.findById(req.user._id);
+
+  if (user) {
+    user.name = req.body.name || user.name;
+    user.email = req.body.email || user.email;
+    if (req.body.password) {
+      user.password = req.body.password;
+      user.passwordConfirm = req.body.passwordConfirm;
+    }
+    const filteredBody = filterObj(req.body, 'name', 'email');
+
+    // const updatedUser = await user.save();
+    const updatedUser = await User.findByIdAndUpdate(req.user.id, filteredBody, {
+      new: true,
+      runValidators: true,
+    });
+    res.status(200).json({
+      status: 'success',
+      data: {
+        user: updatedUser,
+      },
+    });
+  } else {
+    return next(new appError('User Not Found', 404));
+  }
+});

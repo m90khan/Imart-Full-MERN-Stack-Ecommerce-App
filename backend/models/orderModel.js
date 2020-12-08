@@ -28,7 +28,7 @@ const orderSchema = mongoose.Schema(
         required: [true, 'Please provide postal code'],
         trim: true,
       },
-      Country: {
+      country: {
         type: String,
         required: [true, 'Please provide Country name'],
         trim: true,

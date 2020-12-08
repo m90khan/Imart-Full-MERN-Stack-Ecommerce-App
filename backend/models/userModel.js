@@ -41,7 +41,7 @@ const userSchema = mongoose.Schema(
         validator: function (pass) {
           return pass === this.password;
         },
-        message: 'PasswordConfirm is not same as password',
+        message: 'Password Confirm is not same as password',
       },
     },
     active: {
