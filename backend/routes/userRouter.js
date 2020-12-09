@@ -1,4 +1,5 @@
 import router from 'express';
+const userRouter = router.Router();
 import {
   loginUser,
   protect,
@@ -15,7 +16,6 @@ import {
   restrictTo,
   updateUser,
 } from '../controllers/usersCtrl.js';
-const userRouter = router.Router();
 
 // Get All Users
 userRouter

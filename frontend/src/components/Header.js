@@ -3,6 +3,9 @@ import { Navbar, Nav, Image, Container, NavDropdown, Dropdown } from 'react-boot
 import { LinkContainer } from 'react-router-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/actions/userActions';
+import { Route } from 'react-router-dom';
+
+import SearchBox from './SearchBox';
 
 const Header = () => {
   const userLogin = useSelector((state) => state.userLogin);
@@ -16,10 +19,14 @@ const Header = () => {
       <Navbar bg='dark' expand='lg' variant='dark' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand>iMart</Navbar.Brand>
+            <Navbar.Brand>
+              <strong>iMart</strong>
+            </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
+            <Route render={({ history }) => <SearchBox history={history} />} />
+
             <Nav className='ml-auto'>
               <LinkContainer to='/cart'>
                 <Nav.Link>

@@ -5,7 +5,6 @@ import asyncHandler from 'express-async-handler';
 import appError from '../utils/appError.js';
 import jwt from 'jsonwebtoken';
 import { promisify } from 'util';
-import userRouter from '../routes/userRouter.js';
 
 /*
   @desc     : Allow access to User
@@ -15,6 +14,16 @@ import userRouter from '../routes/userRouter.js';
 export const getMe = (req, res, next) => {
   req.params.id = req.user.id;
   next();
+};
+//User Restriction
+export let restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      // req.user is passed from the previous middleware authCotroller.protect
+      return next(new appError('You do not have permission to perform this action', 403));
+    }
+    next();
+  };
 };
 
 export const getUserProfile = asyncHandler(async (req, res, next) => {
@@ -31,16 +40,6 @@ export const getUserProfile = asyncHandler(async (req, res, next) => {
   });
 });
 
-//User Restriction
-export const restrictTo = (...roles) => {
-  return (req, res, next) => {
-    if (!roles.includes(req.user.role)) {
-      // req.user is passed from the previous middleware authCotroller.protect
-      return next(new appError('You do not have permission to perform this action', 403));
-    }
-    next();
-  };
-};
 // @desc    Get all users
 // @route   GET /api/v1users
 // @access  Private/Admin

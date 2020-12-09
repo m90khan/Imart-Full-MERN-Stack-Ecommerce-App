@@ -22,17 +22,28 @@ export const aliasTopProducts = (req, res, next) => {
 @access   : Public 
 */
 export const getAllProducts = asyncHandler(async (req, res, next) => {
-  let products = await apiFeatures(Product, '', req.query)();
+  const pageSize = 4;
+  const page = Number(req.query.pageNumber) || 1;
+
+  const keyword = req.query.keyword
+    ? {
+        name: {
+          $regex: req.query.keyword,
+          $options: 'i',
+        },
+      }
+    : {};
+
+  const count = await Product.countDocuments({ ...keyword });
+  const products = await Product.find({ ...keyword })
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  // let products = await apiFeatures(Product, '', req.query)();
   if (!products) {
     return next(new appError('No Products Found', 404));
   }
-  res.status(200).json({
-    status: 'success',
-    result: products.length,
-    data: {
-      products: products,
-    },
-  });
+  res.status(200).json({ products, page, pages: Math.ceil(count / pageSize) });
 });
 
 /*
@@ -90,7 +101,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
 // @desc    Update a product
 // @route   PUT /api/products/:id
 // @access  Private/Admin
-export const updateProduct = asyncHandler(async (req, res) => {
+export const updateProduct = asyncHandler(async (req, res, next) => {
   const { name, price, description, image, brand, category, countInStock } = req.body;
 
   const product = await Product.findById(req.params.id);

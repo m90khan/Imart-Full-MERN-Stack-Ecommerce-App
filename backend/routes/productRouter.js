@@ -1,16 +1,23 @@
 import router from 'express';
 
+import { restrictTo } from '../controllers/usersCtrl.js';
+import {
+  loginUser,
+  protect,
+  logout,
+  userSignup,
+  updateUserProfile,
+} from '../controllers/authCtrl.js';
 import {
   getAllProducts,
   getProduct,
   deleteProduct,
   createProduct,
   updateProduct,
-  createProductReview,
   getTopProducts,
   aliasTopProducts,
-} from '../controllers/productController.js';
-import { restrictTo } from '../controllers/usersCtrl.js';
+} from '../controllers/productCtrl.js';
+import { createProductReview } from '../controllers/reviewCtrl.js';
 const productRouter = router.Router();
 
 // GEt 4 cheap and rated Products

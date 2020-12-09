@@ -38,10 +38,11 @@ const ProductListScreen = ({ history, match }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  // console.log(typeof userInfo.data.user.role);
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
-    if (!userInfo || !userInfo.isAdmin) {
+    if (!userInfo || !userInfo.data.user.role === 'admin') {
       history.push('/login');
     }
 

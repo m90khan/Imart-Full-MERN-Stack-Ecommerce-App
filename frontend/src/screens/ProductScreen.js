@@ -8,7 +8,8 @@ import Rating from '../components/Rating';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-import { listProductDetails } from '../redux/actions/productActions';
+import { listProductDetails, createProductReview } from '../redux/actions/productActions';
+import { PRODUCT_CREATE_REVIEW_RESET } from '../redux/constants/productConstants';
 
 const ProductScreen = ({ match, history }) => {
   // const [product, setProduct] = useState({});
@@ -25,15 +26,43 @@ const ProductScreen = ({ match, history }) => {
   //   fetchProduct();
   // }, [match]);
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
   const dispatch = useDispatch();
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
+
+  const productReviewCreate = useSelector((state) => state.productReviewCreate);
+  const {
+    success: successProductReview,
+    loading: loadingProductReview,
+    error: errorProductReview,
+  } = productReviewCreate;
+  console.log(product);
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id));
-  }, [dispatch, match]);
+    if (successProductReview) {
+      setRating(0);
+      setComment('');
+    }
+    if (!product._id || product._id !== match.params.id) {
+      dispatch(listProductDetails(match.params.id));
+      dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
+    }
+  }, [dispatch, match, successProductReview]);
 
   const addtoCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      createProductReview(match.params.id, {
+        rating,
+        comment,
+      })
+    );
   };
   return (
     <>
@@ -45,79 +74,81 @@ const ProductScreen = ({ match, history }) => {
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
-        <Row>
-          <Col md={5}>
-            <Image src={product.image} alt={product.name} fluid />
-          </Col>
-          <Col md={4}>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h4>{product.name}</h4>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Rating value={product.rating} text={product.numReviews} />
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <h5>
-                  Price: <span className='text-secondary'>${product.price}</span>
-                </h5>
-              </ListGroup.Item>
-              <ListGroup.Item>Description: {product.description}</ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={3}>
-            <Card>
+        <>
+          <Row>
+            <Col md={5}>
+              <Image src={product.image} alt={product.name} fluid />
+            </Col>
+            <Col md={4}>
               <ListGroup variant='flush'>
                 <ListGroup.Item>
-                  <Row>
-                    <Col>Price:</Col>{' '}
-                    <Col>
-                      <strong>${product.price}</strong>
-                    </Col>
-                  </Row>
+                  <h4>{product.name}</h4>
                 </ListGroup.Item>
+                <ListGroup.Item>
+                  <Rating value={product.rating} text={product.numReviews} />
+                </ListGroup.Item>
+                <ListGroup.Item>
+                  <h5>
+                    Price: <span className='text-secondary'>${product.price}</span>
+                  </h5>
+                </ListGroup.Item>
+                <ListGroup.Item>Description: {product.description}</ListGroup.Item>
               </ListGroup>
-              <ListGroup variant='flush'>
-                <ListGroup.Item>
-                  <Row>
-                    <Col>Status:</Col>{' '}
-                    <Col>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</Col>
-                  </Row>
-                </ListGroup.Item>
-                {product.countInStock > 0 && (
+            </Col>
+            <Col md={3}>
+              <Card>
+                <ListGroup variant='flush'>
                   <ListGroup.Item>
                     <Row>
-                      <Col>Qty:</Col>{' '}
+                      <Col>Price:</Col>{' '}
                       <Col>
-                        <Form.Control
-                          as='select'
-                          value={qty}
-                          onChange={(e) => setQty(e.target.value)}
-                        >
-                          {[...Array(product.countInStock).keys()].map((val) => (
-                            <option key={val + 1} value={val + 1}>
-                              {val + 1}
-                            </option>
-                          ))}
-                        </Form.Control>
+                        <strong>${product.price}</strong>
                       </Col>
                     </Row>
                   </ListGroup.Item>
-                )}
-                <ListGroup.Item>
-                  <Button
-                    className='btn-block'
-                    type='button'
-                    disabled={product.countInStock === 0}
-                    onClick={addtoCartHandler}
-                  >
-                    ADD TO CART
-                  </Button>
-                </ListGroup.Item>
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+                </ListGroup>
+                <ListGroup variant='flush'>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Status:</Col>{' '}
+                      <Col>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  {product.countInStock > 0 && (
+                    <ListGroup.Item>
+                      <Row>
+                        <Col>Qty:</Col>{' '}
+                        <Col>
+                          <Form.Control
+                            as='select'
+                            value={qty}
+                            onChange={(e) => setQty(e.target.value)}
+                          >
+                            {[...Array(product.countInStock).keys()].map((val) => (
+                              <option key={val + 1} value={val + 1}>
+                                {val + 1}
+                              </option>
+                            ))}
+                          </Form.Control>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )}
+                  <ListGroup.Item>
+                    <Button
+                      className='btn-block'
+                      type='button'
+                      disabled={product.countInStock === 0}
+                      onClick={addtoCartHandler}
+                    >
+                      ADD TO CART
+                    </Button>
+                  </ListGroup.Item>
+                </ListGroup>
+              </Card>
+            </Col>
+          </Row>
+        </>
       )}
     </>
   );

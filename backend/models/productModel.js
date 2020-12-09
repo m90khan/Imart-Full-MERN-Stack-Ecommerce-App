@@ -32,6 +32,11 @@ const reviewSchema = mongoose.Schema(
       type: String,
       trim: true,
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
   },
   {
     timestamps: true,
@@ -79,7 +84,6 @@ const productSchema = mongoose.Schema(
     },
     rating: {
       type: Number,
-      default: 0,
       min: [1, 'Rating must be above 0'],
       max: [5, 'Rating must be equal or below 5'],
       // set: val => Math.round(val * 10) / 10 // this runs everytime a value is added  // 4.76

@@ -25,11 +25,13 @@ import axios from 'axios';
 
 // action creators
 // fetch LIST Products
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (keyword = '', pageNumber = '') => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get('/api/v1/products');
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data.data.products.data });
+    const { data } = await axios.get(
+      `/api/v1/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    );
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
   } catch (err) {
     dispatch({
       type: PRODUCT_LIST_FAIL,
@@ -211,7 +213,7 @@ export const listTopProducts = () => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_TOP_REQUEST });
 
-    const { data } = await axios.get(`/api/products/top`);
+    const { data } = await axios.get(`/api/v1/products/top`);
 
     dispatch({
       type: PRODUCT_TOP_SUCCESS,

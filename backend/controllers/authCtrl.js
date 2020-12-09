@@ -63,7 +63,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 @desc     : JWT Token validation for Private access
 @access   : Middleware 
 */
-export const protect = asyncHandler(async (req, res, next) => {
+export let protect = asyncHandler(async (req, res, next) => {
   // 1- getting token and check if there exists  console.log(req.headers)
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
