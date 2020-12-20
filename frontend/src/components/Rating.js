@@ -20,13 +20,13 @@ const Rating = (props) => {
         </span>
       ))}
 
-      <span> ({text ? text : ''})</span>
+      {text && <span> ({text})</span>}
     </div>
   );
 };
 
 Rating.defaultProps = {
-  color: '#ffce67',
+  color: 'text-warning',
 };
 // proptypes to specify type of each prop
 Rating.propTypes = {

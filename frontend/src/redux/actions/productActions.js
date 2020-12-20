@@ -22,6 +22,7 @@ import {
   PRODUCT_UPDATE_SUCCESS,
 } from '../constants/productConstants';
 import axios from 'axios';
+import { logout } from './userActions';
 
 // action creators
 // fetch LIST Products
@@ -162,9 +163,9 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    // if (message === 'Not authorized, token failed') {
-    //   dispatch(logout());
-    // }
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout());
+    }
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
       payload: message,
