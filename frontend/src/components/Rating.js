@@ -26,7 +26,7 @@ const Rating = (props) => {
 };
 
 Rating.defaultProps = {
-  color: 'text-warning',
+  color: '#ffdc3e',
 };
 // proptypes to specify type of each prop
 Rating.propTypes = {
