@@ -19,6 +19,7 @@ import {
   ORDER_PAY_REQUEST,
   ORDER_PAY_SUCCESS,
 } from '../constants/orderConstants';
+import { logout } from './userActions';
 
 export const createOrder = (order) => async (dispatch, getState) => {
   try {
@@ -29,7 +30,8 @@ export const createOrder = (order) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState();
-
+    console.log(userInfo.token);
+    console.log(order);
     const config = {
       headers: {
         'Content-Type': 'application/json',
@@ -38,6 +40,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     };
 
     const { data } = await axios.post(`/api/v1/orders`, order, config);
+    console.log(data);
     dispatch({
       type: ORDER_CREATE_SUCCESS,
       payload: data,
@@ -48,13 +51,14 @@ export const createOrder = (order) => async (dispatch, getState) => {
     //   })
     localStorage.removeItem('cartItems');
   } catch (error) {
+    console.log(error);
     const message =
       error.response && error.response.data.message
         ? error.response.data.message
         : error.message;
-    // if (message === 'Not authorized, token failed') {
-    //   dispatch(logout());
-    // }
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout());
+    }
     dispatch({
       type: ORDER_CREATE_FAIL,
       payload: message,

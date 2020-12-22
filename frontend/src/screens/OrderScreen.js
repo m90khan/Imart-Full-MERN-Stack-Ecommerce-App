@@ -72,7 +72,6 @@ const OrderScreen = ({ match, history }) => {
   }, [dispatch, orderId, order, successDeliver, successPay]);
 
   const successPaymentHandler = (paymentResult) => {
-    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
   };
 
@@ -137,7 +136,7 @@ const OrderScreen = ({ match, history }) => {
                           <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>{item.name}</Link>
+                          <Link to={`/product/${item.id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
                           {item.qty} x ${item.price} = ${item.qty * item.price}

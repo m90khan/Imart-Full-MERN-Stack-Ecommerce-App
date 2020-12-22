@@ -8,16 +8,15 @@ import {
 export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, action) => {
   switch (action.type) {
     case CART_ADD_ITEM:
+      // fetched item
       const item = action.payload;
       // if item exists
-      const existItem = state.cartItems.find((el) => el.product === item.product);
+      const existItem = state.cartItems.find((el) => el.id === item.id);
       if (existItem) {
         return {
           ...state,
           // current item id = to exist item id
-          cartItems: state.cartItems.map((el) =>
-            el.product === existItem.product ? item : el
-          ),
+          cartItems: state.cartItems.map((el) => (el.id === existItem.id ? item : el)),
         };
       } else {
         return {
@@ -28,7 +27,7 @@ export const cartReducer = (state = { cartItems: [], shippingAddress: {} }, acti
     case CART_REMOVE_ITEM:
       return {
         ...state,
-        cartItems: state.cartItems.filter((el) => el.product !== action.payload),
+        cartItems: state.cartItems.filter((el) => el.id !== action.payload),
       };
     case CART_SAVE_SHIPPING_ADDRESS:
       return {

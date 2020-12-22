@@ -26,6 +26,7 @@ const ProductScreen = ({ match, history }) => {
   //   fetchProduct();
   // }, [match]);
   const [qty, setQty] = useState(1);
+
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const dispatch = useDispatch();
@@ -33,14 +34,12 @@ const ProductScreen = ({ match, history }) => {
   const { loading, error, product } = productDetails;
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
   const productReviewCreate = useSelector((state) => state.productReviewCreate);
   const {
     success: successProductReview,
     loading: loadingProductReview,
     error: errorProductReview,
   } = productReviewCreate;
-  console.log(product.reviews);
   useEffect(() => {
     if (successProductReview) {
       setRating(0);
@@ -50,9 +49,10 @@ const ProductScreen = ({ match, history }) => {
       dispatch(listProductDetails(match.params.id));
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET });
     }
-  }, [dispatch, match, successProductReview]);
+  }, [dispatch, match, product._id, successProductReview]);
 
   const addtoCartHandler = () => {
+    // redirect to cart
     history.push(`/cart/${match.params.id}?qty=${qty}`);
   };
   const submitHandler = (e) => {
@@ -92,7 +92,10 @@ const ProductScreen = ({ match, history }) => {
                     Price: <span className='text-secondary'>${product.price}</span>
                   </h5>
                 </ListGroup.Item>
-                <ListGroup.Item>Description: {product.description}</ListGroup.Item>
+                <ListGroup.Item>
+                  <strong> Description: </strong>
+                  {product.description}
+                </ListGroup.Item>
               </ListGroup>
             </Col>
             <Col md={3}>

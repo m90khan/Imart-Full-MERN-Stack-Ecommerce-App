@@ -14,7 +14,7 @@ const Meta = ({ title, description, keywords }) => {
 Meta.defaultProps = {
   title: 'Welcome To iMart',
   description: 'We sell the best products at affordable prices',
-  keywords: 'electronics, buy electronics, cheap electroincs',
+  keywords: 'electronics, buy electronics, cheap electronics',
 };
 
 export default Meta;

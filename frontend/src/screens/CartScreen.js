@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Row, Col, ListGroup, Image, Form, Button, Card } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Message from '../components/Message';
-import Loader from '../components/Loader';
 import { addToCart, removeFromCart } from '../redux/actions/cartActions';
 
 const CartScreen = (props) => {
   const { match, location, history } = props;
   const productId = match.params.id;
+  //  take qty value  seperated by = sign =>  /cart/5fcc083aabf6c84e08761655?qty=2
   const qty = location.search ? Number(location.search.split('=')[1]) : 1;
 
   const dispatch = useDispatch();
@@ -22,6 +22,7 @@ const CartScreen = (props) => {
 
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id));
+    history.push('/cart');
   };
 
   const checkoutHandler = () => {
@@ -30,21 +31,24 @@ const CartScreen = (props) => {
   return (
     <Row>
       <Col md={8}>
-        <h1 className='py-6'>Shopping Cart</h1>
+        <h3 className='py-4'>Shopping Cart</h3>
         {cartItems.length === 0 ? (
-          <Message>
-            Your cart is empty <Link to='/'>Go Back</Link>
+          <Message variant='warning'>
+            Your cart is empty |
+            <Link to='/'>
+              <strong> Go Back</strong>
+            </Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
             {cartItems.map((item) => (
-              <ListGroup.Item key={item.product}>
+              <ListGroup.Item key={item.id}>
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
                   <Col md={3}>
-                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                    <Link to={`/product/${item.id}`}>{item.name}</Link>
                   </Col>
                   <Col md={2}>${item.price}</Col>
                   <Col md={2}>
@@ -52,7 +56,7 @@ const CartScreen = (props) => {
                       as='select'
                       value={item.qty}
                       onChange={(e) =>
-                        dispatch(addToCart(item.product, Number(e.target.value)))
+                        dispatch(addToCart(item.id, Number(e.target.value)))
                       }
                     >
                       {[...Array(item.countInStock).keys()].map((val) => (
@@ -66,7 +70,7 @@ const CartScreen = (props) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCartHandler(item.product)}
+                      onClick={() => removeFromCartHandler(item.id)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
@@ -84,13 +88,13 @@ const CartScreen = (props) => {
               <h5>
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
               </h5>
-              <h6 className='text-secondary'>
+              <h4 className='text-secondary'>
                 {' '}
                 $
                 {cartItems
                   .reduce((acc, item) => acc + item.qty * item.price, 0)
                   .toFixed(2)}
-              </h6>
+              </h4>
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
@@ -99,7 +103,7 @@ const CartScreen = (props) => {
                 disabled={cartItems.length === 0}
                 onClick={checkoutHandler}
               >
-                Proceed To Checkout
+                PROCEED TO CHECKOUT
               </Button>
             </ListGroup.Item>
           </ListGroup>

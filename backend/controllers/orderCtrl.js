@@ -30,6 +30,18 @@ export const addOrderItems = asyncHandler(async (req, res, next) => {
     });
 
     const createdOrder = await order.save();
+    // const order = new Order({
+    //   orderItems,
+    //   user: req.user._id,
+    //   shippingAddress,
+    //   paymentMethod,
+    //   itemsPrice,
+    //   taxPrice,
+    //   shippingPrice,
+    //   totalPrice,
+    // });
+
+    // const createdOrder = await order.save();
     res.status(201).json(createdOrder);
   }
 });

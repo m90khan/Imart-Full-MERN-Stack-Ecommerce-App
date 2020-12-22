@@ -57,10 +57,7 @@ export const getProduct = asyncHandler(async (req, res, next) => {
     return next(new appError('No Product found with that ID', 404));
   }
   res.status(200).json({
-    status: 'success',
-    data: {
-      product,
-    },
+    product,
   });
 });
 

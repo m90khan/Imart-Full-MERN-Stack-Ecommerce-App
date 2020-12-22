@@ -17,7 +17,7 @@ const orderRouter = router.Router();
 orderRouter
   .route('/')
   .get(protect, restrictTo('admin'), getAllOrders)
-  .post(protect, addOrderItems);
+  .post(protect, getMe, addOrderItems);
 // Logged in user orders
 orderRouter.route('/myorders').get(protect, getMyOrders);
 // Order

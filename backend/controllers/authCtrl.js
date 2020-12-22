@@ -96,7 +96,6 @@ export let protect = asyncHandler(async (req, res, next) => {
   }
   // 5- Grant access to the provided route
   req.user = currentUser;
-  console.log(req.user);
   // res.locals.user = currentUser; // to use it all templates
   next();
 });

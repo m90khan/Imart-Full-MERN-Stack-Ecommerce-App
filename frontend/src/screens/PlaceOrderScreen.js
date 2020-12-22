@@ -27,7 +27,7 @@ const PlaceOrderScreen = ({ history }) => {
   cart.itemsPrice = addDecimals(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
-  cart.shippingPrice = addDecimals(cart.itemsPrice < 500 ? 0 : 50);
+  cart.shippingPrice = addDecimals(cart.itemsPrice < 200 ? 0 : 50);
   cart.taxPrice = addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2)));
   cart.totalPrice = (
     Number(cart.itemsPrice) +
@@ -37,6 +37,7 @@ const PlaceOrderScreen = ({ history }) => {
 
   const orderCreate = useSelector((state) => state.orderCreate);
   const { success, error, order } = orderCreate;
+  console.log(error, success, order);
   useEffect(() => {
     if (success) {
       history.push(`/order/${order._id}`);
@@ -47,6 +48,7 @@ const PlaceOrderScreen = ({ history }) => {
   }, [history, success]);
 
   const placeOrderHandler = () => {
+    console.log(cart.cartItems);
     dispatch(
       createOrder({
         orderItems: cart.cartItems,
@@ -67,7 +69,7 @@ const PlaceOrderScreen = ({ history }) => {
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h3>Shipping</h3>
               <p>
                 <strong>Address: </strong>
                 {cart.shippingAddress.address}, {cart.shippingAddress.city}{' '}
@@ -76,13 +78,13 @@ const PlaceOrderScreen = ({ history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h3>Payment Method</h3>
               <strong>Method: </strong>
               {cart.paymentMethod}
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h3>Order Items</h3>
               {cart.cartItems.length === 0 ? (
                 <Message>Your cart is empty</Message>
               ) : (
@@ -94,7 +96,7 @@ const PlaceOrderScreen = ({ history }) => {
                           <Image src={item.image} alt={item.name} fluid rounded />
                         </Col>
                         <Col>
-                          <Link to={`/product/${item.product}`}>{item.name}</Link>
+                          <Link to={`/product/${item.id}`}>{item.name}</Link>
                         </Col>
                         <Col md={4}>
                           {item.qty} x ${item.price} = ${item.qty * item.price}
@@ -147,7 +149,7 @@ const PlaceOrderScreen = ({ history }) => {
                   disabled={cart.cartItems === 0}
                   onClick={placeOrderHandler}
                 >
-                  Place Order
+                  PLACE ORDER
                 </Button>
               </ListGroup.Item>
             </ListGroup>
