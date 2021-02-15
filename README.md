@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://mifolio-react-app.vercel.app/">
-    <img src="./src/assets/img/clock.svg" alt="Logo" width="120" height="120">
+    <img src="./frontend/public/logo512.png" alt="Logo" width="120" height="120">
   </a>
 
   <h3 align="center">AyaKaffee | Ecommerce store </h3>
@@ -36,7 +36,7 @@ eCommerce platform built with the MERN stack & Redux. <br />
 
 Live:
 
-<img src="./frontend/public/images/header-1.png">
+<img src="./uploads/header-1.png">
 
 #### Process
 
