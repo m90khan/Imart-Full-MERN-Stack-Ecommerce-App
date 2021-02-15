@@ -1,9 +1,5 @@
 # iMart eCommerce Platform
 
-> eCommerce platform built with the MERN stack & Redux.
-
-### MIfolio - React Portfolio with Framer
-
 <br />
 <p align="center">
   <a href="https://ayakaffee-app.herokuapp.com/">
