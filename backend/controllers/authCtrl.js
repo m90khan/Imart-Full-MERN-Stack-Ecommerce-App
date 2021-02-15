@@ -73,7 +73,7 @@ export let protect = asyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
-    return next(new appError('You are not logged in! Please login to get access.', 401));
+    return next(new appError('Not authorized, no token', 401));
   }
   /* verify if something manipulated the data or token expired
        2- validate the token : verification  jwt.verify(token, secretOrPublicKey, [options, callback]) */
@@ -81,12 +81,7 @@ export let protect = asyncHandler(async (req, res, next) => {
   // 3- if validation successfull then check if user exists
   const currentUser = await User.findById(decoded.id);
   if (!currentUser) {
-    return next(
-      new appError(
-        'The user belongs to this token does no longer exists, Please create a new account ',
-        401
-      )
-    );
+    return next(new appError('Not authorized, token failed', 401));
   }
   // 4- check if user changed password after jwt token issued : create another instance method
   if (currentUser.changedPasswordAfter(decoded.iat)) {

@@ -29,7 +29,7 @@ const LoginScreen = ({ location, history }) => {
   };
   return (
     <FormContainer>
-      <h1>Sign In</h1>
+      <h1>Login</h1>
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
@@ -57,7 +57,10 @@ const LoginScreen = ({ location, history }) => {
         <Row className='py-3'>
           <Col>
             New Customer? <span></span>
-            <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+            <Link
+              to={redirect ? `/register?redirect=${redirect}` : '/register'}
+              className='text-pr'
+            >
               Register
             </Link>
           </Col>

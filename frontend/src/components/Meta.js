@@ -12,7 +12,7 @@ const Meta = ({ title, description, keywords }) => {
 };
 
 Meta.defaultProps = {
-  title: 'Welcome To iMart',
+  title: 'Welcome To AyaKaffee',
   description: 'We sell the best products at affordable prices',
   keywords: 'electronics, buy electronics, cheap electronics',
 };

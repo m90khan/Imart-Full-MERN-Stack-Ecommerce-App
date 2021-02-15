@@ -85,12 +85,16 @@ const OrderScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
-      <Row>
+      <h1 className='pt-5'>
+        <strong> Order nr:</strong> {order._id}
+      </h1>
+      <Row className='pb-5'>
         <Col md={8}>
           <ListGroup variant='flush'>
             <ListGroup.Item>
-              <h2>Shipping</h2>
+              <h4>
+                <strong>Shipping</strong>
+              </h4>
               <p>
                 <strong>Name: </strong> {order.user.name}
               </p>
@@ -111,7 +115,9 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Payment Method</h2>
+              <h4>
+                <strong>Payment Method</strong>
+              </h4>
               <p>
                 <strong>Method: </strong>
                 {order.paymentMethod}
@@ -124,7 +130,10 @@ const OrderScreen = ({ match, history }) => {
             </ListGroup.Item>
 
             <ListGroup.Item>
-              <h2>Order Items</h2>
+              <h4>
+                <strong>Order Items Method</strong>
+              </h4>
+
               {order.orderItems.length === 0 ? (
                 <Message>Order is empty</Message>
               ) : (
@@ -153,7 +162,7 @@ const OrderScreen = ({ match, history }) => {
           <Card>
             <ListGroup variant='flush'>
               <ListGroup.Item>
-                <h2>Order Summary</h2>
+                <h2 className='color-pr'>Order Summary</h2>
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
@@ -174,9 +183,13 @@ const OrderScreen = ({ match, history }) => {
                 </Row>
               </ListGroup.Item>
               <ListGroup.Item>
-                <Row>
-                  <Col>Total</Col>
-                  <Col>${order.totalPrice}</Col>
+                <Row className='color-pr '>
+                  <Col>
+                    <strong>Total</strong>
+                  </Col>
+                  <Col>
+                    <strong> ${order.totalPrice}</strong>
+                  </Col>
                 </Row>
               </ListGroup.Item>
               {!order.isPaid && (

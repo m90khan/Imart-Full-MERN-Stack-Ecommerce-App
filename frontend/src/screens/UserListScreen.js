@@ -15,7 +15,6 @@ const UserListScreen = ({ history }) => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
-  console.log(userInfo);
   const userDelete = useSelector((state) => state.userDelete);
   const { success: successDelete } = userDelete;
 

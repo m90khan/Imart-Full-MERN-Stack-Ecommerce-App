@@ -29,9 +29,9 @@ const CartScreen = (props) => {
     history.push('/login?redirect=shipping');
   };
   return (
-    <Row>
+    <Row className='py-4'>
       <Col md={8}>
-        <h3 className='py-4'>Shopping Cart</h3>
+        <h3 className='py-3'>Shopping Cart</h3>
         {cartItems.length === 0 ? (
           <Message variant='warning'>
             Your cart is empty |
@@ -88,7 +88,7 @@ const CartScreen = (props) => {
               <h5>
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
               </h5>
-              <h4 className='text-secondary'>
+              <h4 className='color-pr'>
                 {' '}
                 $
                 {cartItems

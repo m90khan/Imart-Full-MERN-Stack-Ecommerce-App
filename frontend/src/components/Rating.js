@@ -10,9 +10,9 @@ const Rating = (props) => {
           <i
             style={{ color: color }}
             className={
-              value >= val
+              value && value >= val
                 ? 'fas fa-star'
-                : value >= val - 0.5
+                : value && value >= val - 0.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
             }
@@ -26,12 +26,12 @@ const Rating = (props) => {
 };
 
 Rating.defaultProps = {
-  color: '#ffdc3e',
+  color: '#7a4a25',
 };
 // proptypes to specify type of each prop
 Rating.propTypes = {
-  value: PropTypes.number.isRequired,
-  text: PropTypes.number.isRequired,
+  value: PropTypes.number,
+  text: PropTypes.number,
   color: PropTypes.string,
 };
 

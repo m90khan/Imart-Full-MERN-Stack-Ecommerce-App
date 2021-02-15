@@ -6,9 +6,9 @@ const Loader = () => {
   return (
     <div>
       <Spinner
-        animation='border'
+        animation='grow'
         // role='status'
-        variant='secondary'
+        variant='primary'
         style={{ width: '50px', height: '50px', margin: 'auto ', display: 'block' }}
       >
         <span className='sr-only'> Loading ...</span>

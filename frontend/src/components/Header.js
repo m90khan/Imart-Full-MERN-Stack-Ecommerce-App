@@ -16,11 +16,22 @@ const Header = () => {
   };
   return (
     <header>
-      <Navbar bg='dark' expand='lg' variant='dark' collapseOnSelect>
+      <Navbar bg='primary' expand='lg' variant='dark' collapseOnSelect>
         <Container>
           <LinkContainer to='/'>
             <Navbar.Brand>
-              <strong variant='dark'>iMart</strong>
+              <img
+                src='/images/logo.png'
+                alt='logo'
+                style={{ width: '2rem', height: '2rem', marginRight: '1rem' }}
+              />
+
+              <strong
+                variant='dark'
+                style={{ fontFamily: "'Pacifico', cursive", fontWeight: 500 }}
+              >
+                AyaKaffee
+              </strong>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
@@ -56,12 +67,15 @@ const Header = () => {
                   <LinkContainer to='/profile'>
                     <NavDropdown.Item>Profile</NavDropdown.Item>
                   </LinkContainer>
+                  <LinkContainer to='/myOrderList'>
+                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                  </LinkContainer>
                   <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
                   <Nav.Link>
-                    <i className='fas fa-user'></i> Sign In
+                    <i className='fas fa-user'></i> Login
                   </Nav.Link>
                 </LinkContainer>
               )}

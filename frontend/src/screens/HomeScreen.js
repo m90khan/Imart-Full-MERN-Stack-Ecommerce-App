@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Row, Col } from 'react-bootstrap';
+import { Row, Col, Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
@@ -10,6 +10,7 @@ import ProductCarousel from '../components/ProductCarousel';
 import Meta from '../components/Meta';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Newsletter from '../components/Newsletter';
 
 const HomeScreen = ({ match }) => {
   const keyword = match.params.keyword;
@@ -28,29 +29,36 @@ const HomeScreen = ({ match }) => {
     <>
       <Meta />
       {!keyword ? (
-        <ProductCarousel />
+        <Container className='pt-4'>
+          <ProductCarousel />
+        </Container>
       ) : (
-        <Link to='/' className='btn btn-dark'>
-          Go Back
-        </Link>
+        <Container className='py-4'>
+          <Link to='/' className='btn btn-dark'>
+            Go Back
+          </Link>
+        </Container>
       )}
-      <h3 className='mt-4'>Latest Products</h3>
-      {loading ? (
-        <Loader />
-      ) : error ? (
-        <Message variant='danger'>{error}</Message>
-      ) : (
-        <>
-          <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
-          <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
-        </>
-      )}
+      <Container className='pt-4'>
+        <h3 className='mt-4'>Products</h3>
+        {loading ? (
+          <Loader />
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
+        ) : (
+          <>
+            <Row>
+              {products.map((product) => (
+                <Col key={product._id} sm={12} md={6} lg={4} xl={4}>
+                  <Product product={product} />
+                </Col>
+              ))}
+            </Row>
+            <Paginate pages={pages} page={page} keyword={keyword ? keyword : ''} />
+          </>
+        )}
+      </Container>
+      <Newsletter />
     </>
   );
 };

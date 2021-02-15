@@ -28,15 +28,29 @@ const ProductCarousel = () => {
             <Image
               src={product.image}
               alt={product.name}
+              className='imageOverlay'
               style={{
                 width: '100%',
-                height: '60vh',
+                height: '80vh',
                 objectFit: 'cover',
                 backgroundPosition: 'center center',
               }}
             />
-            <Carousel.Caption className='carousel-caption'>
-              <h2>
+            <div
+              style={{
+                position: 'absolute',
+                width: '100%',
+                height: '100%',
+                top: 0,
+                left: 0,
+                background: 'black',
+                opacity: 0.2,
+                zIndex: 500,
+                padding: '5rem',
+              }}
+            ></div>
+            <Carousel.Caption className='carousel-caption' style={{ zIndex: 600 }}>
+              <h2 className='text-white'>
                 {product.name} (${product.price})
               </h2>
             </Carousel.Caption>

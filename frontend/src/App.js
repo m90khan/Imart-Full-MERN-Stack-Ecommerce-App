@@ -17,6 +17,11 @@ import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import MyOrderScreen from './screens/MyOrderScreen';
+import AboutScreen from './screens/AboutScreen';
+import PrivacyScreen from './screens/PrivacyScreen';
+import TermScreen from './screens/TermScreen';
+import ContactScreen from './screens/ContactScreen';
 const App = () => {
   return (
     <Router>
@@ -25,11 +30,16 @@ const App = () => {
         <Container>
           <Route path='/order/:id' component={OrderScreen} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/myOrderList' component={MyOrderScreen} />
           <Route path='/shipping' component={ShippingScreen} />
           <Route path='/payment' component={PaymentScreen} />
           <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/login' component={LoginScreen} />
+          <Route path='/about' component={AboutScreen} exact />
+          <Route path='/contact' component={ContactScreen} exact />
+          <Route path='/privacy' component={PrivacyScreen} exact />
+          <Route path='/terms' component={TermScreen} exact />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />
@@ -46,8 +56,8 @@ const App = () => {
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/search/:keyword/page/:pageNumber' component={HomeScreen} exact />
           <Route path='/' component={HomeScreen} exact />
-          {/* :id? => to make id optional */}
         </Container>
+        {/* :id? => to make id optional */}
       </main>
       <Footer />
     </Router>
