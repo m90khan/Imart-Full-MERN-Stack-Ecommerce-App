@@ -6,7 +6,7 @@
 
 <br />
 <p align="center">
-  <a href="https://mifolio-react-app.vercel.app/">
+  <a href="https://ayakaffee-app.herokuapp.com/">
     <img src="./frontend/public/logo512.png" alt="Logo" width="120" height="120">
   </a>
 
@@ -17,7 +17,7 @@ eCommerce platform built with the MERN stack & Redux. <br />
     <a href="m90khan@gmail.com"><strong>Contact Me</strong></a>
     <br />
     <br />
-    <a href="https://mifolio-react-app.vercel.app/">View Demo</a>
+    <a href="https://ayakaffee-app.herokuapp.com/">View Demo</a>
     
    </p>
 </p>
@@ -34,7 +34,7 @@ eCommerce platform built with the MERN stack & Redux. <br />
 
 ### About the Project
 
-Live:
+Live: https://ayakaffee-app.herokuapp.com/
 
 <img src="./uploads/header-1.png">
 
