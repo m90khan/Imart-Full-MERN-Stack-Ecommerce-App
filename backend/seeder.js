@@ -30,7 +30,7 @@ const importData = async () => {
     await User.deleteMany();
 
     const createdUsers = await User.create(users, { validateBeforeSave: false }); // fails because of password confirm
-    // to create adin for all products
+    // to create admin for all products
     const adminUser = createdUsers[0]._id;
     const sampleProducts = products.map((product) => {
       return { ...product, user: adminUser };
